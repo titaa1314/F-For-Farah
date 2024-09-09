@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F For Farah</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('https://example.com/moon-july-17-2024.jpg'); /* Ganti URL dengan gambar fase bulan */
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #fff;
+            width: 80%;
+            max-width: 600px;
+            line-height: 1.6;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        img {
+            width: 300px;
+            height: auto;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .hidden-frag {
+            cursor: pointer;
+        }
+
+        /* Progres pesan tersembunyi */
+        .progress {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        /* Animasi Bunga Dandelion */
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url('https://i.ibb.co/5KGBTVp/dandelion.png') no-repeat center/contain;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .full-message {
+            display: none;
+            font-size: 2rem;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Happy 20th Birthday, <span id="frag1" class="hidden-frag" onclick="findFragment(1)">Farah</span>!</h1>
+
+    <p>Hari ini, aku langitkan semua doa terbaik aku untuk kamu. Sesuai sama nama kamu 'Farah' yang artinya <span id="frag3" class="hidden-frag" onclick="findFragment(3)">kebahagiaan</span>. Semoga hari-hari berikutnya kamu diiringi kebahagiaan yang tidak ada habisnya. Semoga kebahagiaan kamu <span id="frag6" class="hidden-frag" onclick="findFragment(6)">bersama</span> orang tua yang selalu kamu <span id="frag5" class="hidden-frag" onclick="findFragment(5)">impikan</span> itu <span id="frag9" class="hidden-frag" onclick="findFragment(9)">kini</span> sudah terlaksana. Semoga kamu selalu dilindungi dari orang yang berniat jahat sama kamu atau apapun itu. Dan yang paling penting, semoga kamu selalu menjadi anak yang sholehah yang bukan di <span id="frag8" class="hidden-frag" onclick="findFragment(8)">dunia</span> saja. Sehat selalu ya, <span id="frag10" class="hidden-frag" onclick="findFragment(10)">cantik</span>.</p>
+
+    <img id="frag11" class="hidden-frag" src="https://example.com/foto-kebersamaan.jpg" alt="Foto momen kebersamaan" onclick="findFragment(11)">
+    <img id="frag13" class="hidden-frag" src="https://example.com/kolase-farah.jpg" alt="Kolase Farah" onclick="findFragment(13)">
+
+    <!-- Progres pesan tersembunyi -->
+    <div class="progress" id="progress">Tersisa 13/13 pesan tersembunyi</div>
+
+    <div class="full-message" id="fullMessage"></div>
+
+    <!-- Autoplay lagu dari YouTube -->
+    <iframe width="0" height="0" src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1&loop=1&playlist=VIDEO_ID" frameborder="0" allow="autoplay"></iframe>
+
+    <script>
+        let foundFragments = [];
+        const totalFragments = 13;
+        let scrollBottomReached = false;
+        let specialFragments = [6, 7, 11, 12]; // Fragmen khusus yang memberikan +2 poin
+
+        const fragments = {
+            1: "aku",
+            2: "harap",
+            3: "ada",
+            4: "caranya",
+            5: "lagi",
+            6: "biar",
+            7: "bisa",
+            8: "kaya",
+            9: "waktu",
+            10: "kamu",
+            11: "deket",
+            12: "sama",
+            13: "kamu"
+        };
+
+        function findFragment(fragmentId) {
+            if (scrollBottomReached && !foundFragments.includes(fragmentId)) {
+                foundFragments.push(fragmentId);
+
+                // Disable click after it's clicked
+                document.getElementById(`frag${fragmentId}`).style.pointerEvents = "none";
+
+                if (specialFragments.includes(fragmentId)) {
+                    alert("Njay kamu nemu pesan tersembunyi khusus auto +2 point!");
+                    foundFragments.push(fragmentId + 1); // Tambah progress 2 kali untuk fragmen gabungan
+                } else {
+                    alert("Pinter kamu menemukan 1 dari 13 pesan tersembunyi!");
+                }
+                updateProgress();
+            } else if (!scrollBottomReached) {
+                alert("Scroll ke bawah untuk menemukan pesan tersembunyi!");
+            }
+        }
+
+        function updateProgress() {
+            const remaining = totalFragments - foundFragments.length;
+            document.getElementById('progress').textContent = `Tersisa ${remaining}/${totalFragments} pesan tersembunyi`;
+
+            // Tampilkan progres hanya 2 detik
+            setTimeout(() => {
+                document.getElementById('progress').textContent = "";
+            }, 2000);
+
+            // Jika semua fragmen ditemukan, gabungkan pesan dan tampilkan selama 1 detik
+            if (remaining === 0) {
+                setTimeout(showFullMessage, 500);
+            }
+        }
+
+        function showFullMessage() {
+            const message = Object.values(fragments).join(' ');
+            const fullMessageDiv = document.getElementById('fullMessage');
+            fullMessageDiv.textContent = message;
+            fullMessageDiv.style.display = 'block';
+
+            setTimeout(() => {
+                fullMessageDiv.style.display = 'none';
+            }, 1000);
+        }
+
+        // Animasi Bunga Dandelion
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.classList.add('flower');
+            flower.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(flower);
+
+            setTimeout(() => {
+                flower.remove();
+            }, 5000);
+        }
+
+        // Bunga jatuh otomatis tanpa scroll
+        setInterval(createFlower, 500);
+
+        // Deteksi scrolling untuk cek apakah sudah di-scroll ke bawah
+        window.addEventListener('scroll', () => {
+            // Cek apakah sudah di-scroll ke bagian bawah
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                scrollBottomReached = true;
+                revealHiddenContent();
+            }
+        });
+
+        // Menampilkan konten tersembunyi setelah di-scroll ke bawah
+        function revealHiddenContent() {
+            document.querySelectorAll('.hidden-frag').forEach(element => {
+                element.style.cursor = 'pointer';
+            });
+            alert("Hai cantik titaa nengirimkan kamu pesan tersembunyi untuk dipecahkan!! silahkan click pada bagian tertentu dan kamu akan menemukan pesannya (mostly di teks yaa)");
+        }
+
+    </script>
+
+</body>
+</html>
